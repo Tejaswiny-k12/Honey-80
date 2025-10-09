@@ -1,0 +1,35 @@
+model: RandomForest
+n_estimators: 100
+max_depth: 10
+min_samples_split: 2
+min_samples_leaf: 1
+random_state: 42
+
+data:
+  raw_data_path: data/raw/
+  interim_data_path: data/interim/
+  processed_data_path: data/processed/
+
+logging:
+  log_file: logs/ids.log
+  log_level: INFO
+
+evaluation:
+  metrics:
+    - accuracy
+    - precision
+    - recall
+    - f1_score
+
+training:
+  test_size: 0.2
+  random_state: 42
+  epochs: 50
+  batch_size: 32
+
+features:
+  feature_selection: true
+  feature_importance: true
+
+detection:
+  threshold: 0.7

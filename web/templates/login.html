@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Sign Up | Log In</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      /* CSS (colors modified only; selectors and layout unchanged) */
+*{margin:0;padding:0;box-sizing:border-box;font-family:Raleway,sans-serif}
+html,body{display:grid;height:100%;width:100%;place-items:center;background:linear-gradient(90deg,#0b0f17,#07101a)}
+.wrapper{overflow:hidden;max-width:390px;background:#0f1724;padding:30px;border-radius:8px;box-shadow:0 18px 30px rgba(2,6,23,.6)}
+.title-text{display:flex;width:200%}
+.title{width:50%;font-size:35px;font-weight:600;text-align:center;transition:all .6s;color:#e6eef6}
+.slide-controls{position:relative;display:flex;height:50px;width:100%;overflow:hidden;margin:30px 0 10px;justify-content:space-between;border:1px solid rgba(255,255,255,0.04);border-radius:8px;background:transparent}
+.slide{height:100%;width:100%;color:#9aa3b2;font-size:18px;font-weight:500;text-align:center;line-height:48px;cursor:pointer;z-index:1;transition:all .6s}
+.slide.signup{color:#07101a}
+.slider-tab{position:absolute;height:100%;width:50%;left:0;z-index:0;border-radius:8px;background:linear-gradient(90deg,#6c5ce7,#00d1b2);transition:all .6s}
+input[type="radio"]{display:none}
+#signup:checked ~ .slider-tab{left:50%}
+#signup:checked ~ label.signup{color:#fff;cursor:default;user-select:none}
+#signup:checked ~ label.login{color:#9aa3b2}
+.wrapper .form-container{width:100%;overflow:hidden}
+.form-inner{display:flex;width:200%}
+form{width:50%;transition:all .6s}
+.field{height:50px;width:100%;margin-top:20px}
+.field input{height:100%;width:100%;outline:none;padding-left:15px;border-radius:6px;border:1px solid rgba(255,255,255,0.04);border-bottom-width:2px;font-size:17px;background:transparent;color:#e6eef6}
+.field input:focus{border-color:#6c5ce7;box-shadow:0 8px 20px rgba(108,92,231,0.06)}
+.pass-link{margin-top:5px}
+.signup-link{text-align:center;margin-top:30px}
+.pass-link a,.signup-link a{color:#7f8cff;text-decoration:none}
+.btn{height:50px;width:100%;border-radius:6px;position:relative;overflow:hidden}
+.btn-layer{height:100%;width:300%;position:absolute;left:-100%;background:linear-gradient(90deg,#6c5ce7,#00d1b2,#6c5ce7,#00d1b2);border-radius:6px;transition:all .4s}
+.btn:hover .btn-layer{left:0}
+.btn input[type="submit"]{height:100%;width:100%;z-index:2;position:relative;background:none;border:none;color:#07101a;padding-left:0;border-radius:6px;font-size:18px;font-weight:600;cursor:pointer}
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+       <div class="title-text">
+          <div class="title login">Account</div>
+          <div class="title signup">Account</div>
+       </div>
+       <div class="form-container">
+          <div class="slide-controls">
+             <input type="radio" name="slide" id="login" checked>
+             <input type="radio" name="slide" id="signup">
+             <label for="login" class="slide login">Login</label>
+             <label for="signup" class="slide signup">SignUp</label>
+             <div class="slider-tab"></div>
+          </div>
+          <div class="form-inner">
+             <form id="login-form" class="login">
+                <input type="hidden" name="form_type" value="login">
+                <div class="field">
+                   <input id="login-email" name="email" type="email" placeholder="Email Address" required>
+                </div>
+                <div class="field">
+                   <input id="login-password" name="password" type="password" placeholder="Password" required>
+                </div>
+                <div class="pass-link">
+                   <a href="#">Reset password?</a>
+                </div>
+                <div class="field btn">
+                   <div class="btn-layer"></div>
+                   <input type="submit" value="Login">
+                </div>
+                <div class="signup-link">
+                   Don't Have Account? <a href="#" id="to-signup">Create A New</a>
+                </div>
+             </form>
+             <form id="signup-form" class="signup">
+                <input type="hidden" name="form_type" value="signup">
+                <div class="field">
+                   <input id="signup-email" name="email" type="email" placeholder="Email Address" required>
+                </div>
+                <div class="field">
+                   <input id="signup-password" name="password" type="password" placeholder="Password" required>
+                </div>
+                <div class="field">
+                   <input id="signup-confirm" name="confirm" type="password" placeholder="Confirm Password" required>
+                </div>
+                <div class="field btn">
+                   <div class="btn-layer"></div>
+                   <input type="submit" value="SignUp">
+                </div>
+             </form>
+          </div>
+       </div>
+    </div>
+    <script>
+const loginText = document.querySelector(".title-text .login");
+const loginForm = document.querySelector("form.login");
+const loginBtn = document.querySelector("label.login");
+const signupBtn = document.querySelector("label.signup");
+const signupLink = document.getElementById("to-signup");
+signupBtn.onclick = ()=>{ loginForm.style.marginLeft = "-50%"; loginText.style.marginLeft = "-50%"; };
+loginBtn.onclick = ()=>{ loginForm.style.marginLeft = "0%"; loginText.style.marginLeft = "0%"; };
+signupLink.onclick = (e)=>{ e.preventDefault(); signupBtn.click(); return false; };
+
+const loginFormEl = document.getElementById('login-form');
+const signupFormEl = document.getElementById('signup-form');
+
+async function postJSON(url, data) {
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+  const text = await res.text();
+  try { return JSON.parse(text); } catch { return { success: false, message: text || 'Invalid server response' }; }
+}
+
+loginFormEl.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+  const res = await postJSON('/auth', { form_type: 'login', email, password });
+  alert(res.message || 'No response');
+  if (res.success) window.location.href = '/';
+});
+
+signupFormEl.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const email = document.getElementById('signup-email').value.trim();
+  const password = document.getElementById('signup-password').value;
+  const confirm = document.getElementById('signup-confirm').value;
+  const res = await postJSON('/auth', { form_type: 'signup', email, password, confirm });
+  alert(res.message || 'No response');
+  if (res.success) { document.querySelector('label.login').click(); }
+});
+    </script>
+  </body>
+</html>
