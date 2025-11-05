@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Honey-SSH Admin Dashboard</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    body{font-family:Inter,system-ui,Arial;background:#0b0f17;color:#e6eef6;margin:0}
+    .wrap{max-width:1100px;margin:28px auto;padding:20px}
+    header{display:flex;justify-content:space-between;align-items:center}
+    .badge{background:#222528;padding:8px 12px;border-radius:8px}
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:18px;margin-top:18px}
+    .panel{background:#17191b;padding:14px;border-radius:10px}
+    .list-item{padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.02);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+    .level-low{background:#1f2b20;color:#a9f3b0;padding:6px 10px;border-radius:6px}
+    .level-med{background:#49331a;color:#ffd8a8;padding:6px 10px;border-radius:6px}
+    .level-high{background:#3a1517;color:#ffbdbd;padding:6px 10px;border-radius:6px}
+    pre{background:#0b0c0d;padding:10px;border-radius:6px;overflow:auto}
+    .controls{display:flex;gap:8px;align-items:center}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h2 style="margin:0">Honey-SSH Admin</h2>
+        <div style="color:#97a0a8;font-size:13px">Signed in as: {{ user }}</div>
+      </div>
+      <div class="controls">
+        <div class="badge" id="count">-- IPs</div>
+        <a href="/logout" style="color:#9b7dff;text-decoration:none;margin-left:12px">Logout</a>
+      </div>
+    </header>
+
+    <div class="grid">
+      <div class="panel" id="left">
+        <h3 style="margin-top:0">Top IPs by Risk</h3>
+        <div id="list"></div>
+      </div>
+
+      <aside class="panel" id="right">
+        <h3 style="margin-top:0">Risk Distribution</h3>
+        <canvas id="riskChart" width="300" height="220"></canvas>
+        <div style="height:12px"></div>
+        <h4>Details</h4>
+        <div id="details"><em>Select an IP to see examples</em></div>
+      </aside>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const API = '/admin/api/risk';
+    let currentItems = [];
+    const listEl = document.getElementById('list');
+    const detailsEl = document.getElementById('details');
+    const countBadge = document.getElementById('count');
+
+    const ctx = document.getElementById('riskChart').getContext('2d');
+    const chart = new Chart(ctx, {
+      type: 'bar',
+      data: { labels: ['High','Medium','Low'], datasets: [{ label: 'IPs', data: [0,0,0], backgroundColor: ['#ff6b6b','#ffb86b','#7fe08a'] }] },
+      options: { responsive: true, maintainAspectRatio: false }
+    });
+
+    function levelClass(level){
+      if(level === 'High') return 'level-high';
+      if(level === 'Medium') return 'level-med';
+      return 'level-low';
+    }
+
+    function renderList(items){
+      listEl.innerHTML = '';
+      if(!items.length){
+        listEl.innerHTML = '<div style="color:#97a0a8;padding:30px;text-align:center">No events yet</div>';
+        countBadge.textContent = '0 IPs';
+        updateChart([]);
+        return;
+      }
+      countBadge.textContent = items.length + ' IPs';
+      items.forEach((it, idx) => {
+        const div = document.createElement('div');
+        div.className = 'list-item';
+        div.innerHTML = `<div style="max-width:65%"><strong>${it.ip}</strong><div style="color:#97a0a8;font-size:12px">${it.total} events · suspicious:${it.suspicious} · score:${it.score}</div></div><div><span class="${levelClass(it.level)}">${it.level}</span></div>`;
+        div.onclick = () => showDetails(it);
+        listEl.appendChild(div);
+      });
+    }
+
+    function showDetails(it){
+      detailsEl.innerHTML = `<div><strong>IP:</strong> ${it.ip}</div>
+                             <div><strong>Score:</strong> ${it.score} (${it.level})</div>
+                             <div><strong>Last seen:</strong> ${it.last_ts || 'unknown'}</div>
+                             <div style="height:8px"></div>
+                             <div><strong>Examples:</strong></div>
+                             <pre>${it.examples.map(x=>x.replace(/</g,'&lt;')).join("\\n\\n")}</pre>`;
+    }
+
+    function updateChart(items){
+      const high = items.filter(i=>i.level==='High').length;
+      const med = items.filter(i=>i.level==='Medium').length;
+      const low = items.filter(i=>i.level==='Low').length;
+      chart.data.datasets[0].data = [high, med, low];
+      chart.update();
+    }
+
+    async function fetchAndRender(){
+      try{
+        const res = await fetch(API);
+        const j = await res.json();
+        if(!j.ok) return;
+        currentItems = j.items;
+        renderList(currentItems);
+        updateChart(currentItems);
+        if(currentItems.length) showDetails(currentItems[0]);
+      }catch(e){
+        console.warn('dashboard fetch failed', e);
+      }
+    }
+
+    fetchAndRender();
+    setInterval(fetchAndRender, 5000);
+  </script>
+</body>
+</html>

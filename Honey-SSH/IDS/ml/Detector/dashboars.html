@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>IDS Dashboard</title>
+  <style>
+    :root{
+      --bg:#0f1113; --panel:#17191b; --muted:#9aa0a6; --accent:#d9534f; --card:#121416;
+      --success:#4caf50; --danger:#ff4d4f;
+      --glass: rgba(255,255,255,0.03);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#0b0c0d 0%, #0f1113 100%);color:#e6e9eb;}
+    .wrap{max-width:1100px;margin:28px auto;padding:20px;}
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+    .title{display:flex;gap:14px;align-items:center}
+    h1{margin:0;font-size:20px;letter-spacing:0.2px}
+    .alert-pill{background:var(--accent);padding:10px 18px;border-radius:8px;color:white;font-weight:700;box-shadow:0 6px 18px rgba(217,83,79,0.18)}
+    .controls{display:flex;gap:8px;align-items:center}
+    .refresh{background:var(--glass);border:1px solid rgba(255,255,255,0.03);padding:10px;border-radius:8px;color:var(--muted);cursor:pointer}
+    .count-badge{background:#222528;padding:6px 10px;border-radius:999px;color:var(--muted);font-weight:600}
+    .grid{display:grid;grid-template-columns:1fr 380px;gap:18px}
+    .list{background:var(--panel);padding:16px;border-radius:10px;min-height:320px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:14px;border-radius:10px;margin-bottom:12px;border:1px solid rgba(255,255,255,0.02);display:flex;flex-direction:column;gap:8px}
+    .meta{display:flex;gap:10px;align-items:center;justify-content:space-between}
+    .meta .ips{font-size:13px;color:var(--muted)}
+    .meta .ts{font-size:12px;color:var(--muted)}
+    .summary{background:var(--card);padding:10px;border-radius:8px;color:#fff}
+    .severity{font-weight:800;padding:8px 12px;border-radius:8px;color:#111}
+    .severity.high{background:var(--danger);color:#fff}
+    .severity.medium{background:#ffb020;color:#111}
+    .severity.low{background:var(--success);color:#fff}
+    .rightpanel{background:var(--panel);padding:16px;border-radius:10px}
+    .detail{font-size:13px;color:var(--muted);line-height:1.5}
+    .raw{background:#0b0c0d;padding:10px;border-radius:8px;font-family:monospace;font-size:12px;color:#cbd5da;overflow:auto;max-height:180px}
+    .empty{padding:40px;text-align:center;color:var(--muted)}
+    .pulse {
+      position:relative;display:inline-block;
+    }
+    .pulse::after{
+      content:"";position:absolute;inset:0;border-radius:999px;box-shadow:0 0 0 0 rgba(217,83,79,0.6);animation: pulse 1.6s infinite;
+    }
+    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(217,83,79,0.6)}70%{box-shadow:0 0 0 12px rgba(217,83,79,0)}100%{box-shadow:0 0 0 0 rgba(217,83,79,0)}}
+    @media (max-width:900px){ .grid{grid-template-columns:1fr} .rightpanel{order:2} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="title">
+        <div class="alert-pill pulse" id="bigAlert">ALERT</div>
+        <div>
+          <h1>IDS Alert</h1>
+          <div style="color:var(--muted);font-size:13px">Live detections from honeypot / higpt</div>
+        </div>
+      </div>
+      <div class="controls">
+        <div class="count-badge" id="count">-- alerts</div>
+        <button class="refresh" id="btnRefresh">Refresh</button>
+      </div>
+    </header>
+
+    <div class="grid">
+      <div class="list" id="alertsList">
+        <!-- alerts inserted here -->
+        <div class="empty" id="emptyMsg">No alerts yet</div>
+      </div>
+
+      <aside class="rightpanel" id="rightPanel">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <strong style="font-size:16px">Alert Details</strong>
+          <span id="severityBadge" class="severity high">High</span>
+        </div>
+        <div style="height:12px"></div>
+        <div class="detail" id="detailPanel">
+          <div><strong>Source IP</strong> <div style="color:var(--muted)" id="detailSource">-</div></div>
+          <div style="height:8px"></div>
+          <div><strong>Destination IP</strong> <div style="color:var(--muted)" id="detailDest">-</div></div>
+          <div style="height:8px"></div>
+          <div><strong>Timestamp</strong> <div style="color:var(--muted)" id="detailTs">-</div></div>
+        </div>
+
+        <div style="height:12px"></div>
+        <div><strong>Alert Summary</strong></div>
+        <div class="summary" id="detailSummary">-</div>
+
+        <div style="height:12px"></div>
+        <div><strong>Raw Payload / Context</strong></div>
+        <div class="raw" id="detailRaw">-</div>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    const API = '/api/alerts';
+    let latestId = null;
+
+    function severityClass(s){
+      if(!s) return 'high';
+      s = String(s).toLowerCase();
+      if(s.includes('high')||s.includes('critical')) return 'high';
+      if(s.includes('low')||s.includes('info')) return 'low';
+      return 'medium';
+    }
+
+    function renderAlertCard(a, idx){
+      const severity = a.severity || (a.prediction === 1 ? 'High' : 'Medium');
+      const sevClass = severityClass(severity);
+      const el = document.createElement('div');
+      el.className = 'card';
+      el.innerHTML = `
+        <div class="meta">
+          <div class="ips"><strong>${a.source_ip || 'unknown'}</strong> → ${a.destination_ip || '-'}</div>
+          <div class="ts">${a.ts || ''}</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div style="font-weight:700">${a.summary ? a.summary.substring(0,120) : 'Suspicious activity detected'}</div>
+          <div class="severity ${sevClass}" style="text-transform:capitalize">${severity}</div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <button class="refresh" onclick="showDetail(${idx})">View</button>
+        </div>
+      `;
+      return el;
+    }
+
+    let currentAlerts = [];
+
+    function showDetail(idx){
+      const a = currentAlerts[idx];
+      if(!a) return;
+      document.getElementById('detailSource').textContent = a.source_ip || '-';
+      document.getElementById('detailDest').textContent = a.destination_ip || '-';
+      document.getElementById('detailTs').textContent = a.ts || '-';
+      document.getElementById('detailSummary').textContent = a.summary || '-';
+      document.getElementById('detailRaw').textContent = JSON.stringify(a.raw || a, null, 2);
+      const sev = a.severity || (a.prediction === 1 ? 'High' : 'Medium');
+      const badge = document.getElementById('severityBadge');
+      badge.className = 'severity ' + severityClass(sev);
+      badge.textContent = (sev || 'High');
+    }
+
+    async function fetchAlerts(){
+      try{
+        const res = await fetch(API + '?limit=30');
+        if(!res.ok) throw new Error('bad response');
+        const data = await res.json();
+        currentAlerts = data;
+        document.getElementById('count').textContent = data.length + ' alert(s)';
+        const list = document.getElementById('alertsList');
+        list.innerHTML = '';
+        if(!data.length){
+          document.getElementById('emptyMsg').style.display='block';
+        } else {
+          document.getElementById('emptyMsg').style.display='none';
+          data.forEach((a, i)=>{
+            const card = renderAlertCard(a, i);
+            list.appendChild(card);
+          });
+          // show first by default
+          showDetail(0);
+        }
+        // visual notification if new alert
+        const newest = data.length ? JSON.stringify(data[0]) : null;
+        if(latestId && newest && newest !== latestId){
+          // flash the big ALERT
+          const el = document.getElementById('bigAlert');
+          el.style.transform = 'scale(1.03)';
+          setTimeout(()=>el.style.transform='', 700);
+        }
+        latestId = newest;
+      }catch(err){
+        console.warn('Failed to fetch alerts', err);
+      }
+    }
+
+    document.getElementById('btnRefresh').addEventListener('click', fetchAlerts);
+
+    // initial fetch and poll
+    fetchAlerts();
+    setInterval(fetchAlerts, 5000);
+  </script>
+</body>
+</html>

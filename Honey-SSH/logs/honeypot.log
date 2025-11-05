@@ -1,0 +1,116 @@
+IP: 192.168.1.3 | Command: hello
+IP: 192.168.1.3 | Command: hi
+IP: 10.36.185.253 | Command: hi
+IP: 10.36.185.253 | Command: hii
+
+IP: 192.168.0.158 | Command: welcome
+IP: 192.168.0.158 | Command: sdsdsdsd
+IP: 127.0.0.1 | Command: how to perform buffer overflow
+IP: 127.0.0.1 | Command: ENQUEUE_SCAN quick 192.168.28.225 -> job 1
+IP: 127.0.0.1 | Command: ENQUEUE_SCAN quick 127.0.0.1 -> job 2
+IP: 127.0.0.1 | Command: welcome
+IP: 127.0.0.1 | Command: scan amazon.com
+IP: 127.0.0.1 | Command: ENQUEUE_SCAN quick amazon.com -> job 3
+IP: 127.0.0.1 | Command: ENQUEUE_SCAN full amazon.com -> job 4
+IP: 127.0.0.1 | Command: ENQUEUE_SCAN quick 192.168.126.1 -> job 5
+IP: 127.0.0.1 | Command: ENQUEUE_SCAN quick 192.168.126.1 -> job 6
+IP: 127.0.0.1 | Command: ENQUEUE_SCAN full 192.168.126.1 -> job 7
+IP: 127.0.0.1 | Command: what are the different types of root
+IP: 127.0.0.1 | Command: scan
+IP: 127.0.0.1 | Command: sujith
+IP: 127.0.0.1 | Command: what is the weather today
+IP: 127.0.0.1 | Command: heyy
+IP: 127.0.0.1 | Command: how are you
+IP: 127.0.0.1 | Command: hello
+IP: 127.0.0.1 | Command: hi
+IP: 127.0.0.1 | Command: hi
+2025-10-04T05:32:34.810457 | IP: 127.0.0.1 | Command: hello
+2025-10-04T05:35:35.407273 | IP: 127.0.0.1 | Command: <script>alert(1)</script>
+2025-10-04T05:54:41.326846 | IP: 127.0.0.1 | Command: heyyy
+2025-10-04T05:54:46.847225 | IP: 127.0.0.1 | Command: hello
+2025-10-04T06:08:15.651377 | IP: 127.0.0.1 | Command: how are you
+2025-10-04T06:18:32.971539 | IP: 127.0.0.1 | Command: ifconfig
+2025-10-04T06:26:55.943731 | IP: 127.0.0.1 | Command: sudo systemctl status ssh
+2025-10-04T06:27:33.134723 | IP: 127.0.0.1 | Command: docker exec -it container_name_or_id /bin/bash
+IP: 127.0.0.1 | Command: how are you
+IP: 127.0.0.1 | Command: hello
+IP: 127.0.0.1 | Command: <script>alert(1)</script>
+IP: 127.0.0.1 | Command: <script>alert(1)</script>
+IP: 127.0.0.1 | Command: <script>alert(1)</script>
+IP: 127.0.0.1 | Command: hello
+IP: 127.0.0.1 | Command: how are you
+IP: 127.0.0.1 | Command: hey
+IP: 127.0.0.1 | Command: hello
+IP: 127.0.0.1 | Command: how are you
+IP: 127.0.0.1 | Command: okay
+IP: 127.0.0.1 | Command: default
+IP: 127.0.0.1 | Command: heyy
+IP: 127.0.0.1 | Command: how are you
+IP: 127.0.0.1 | Command: <script>alert(1)</script>
+IP: 10.219.120.45 | Command: hi
+IP: 10.219.120.45 | Command: hello
+IP: 10.219.120.45 | Command: hello
+IP: 10.219.120.45 | Command: heyyy
+IP: 10.219.120.45 | Command: TERMINAL_ACCESS: heyyy
+IP: 127.0.0.1 | Command: hello
+IP: 127.0.0.1 | Command: whoami
+IP: 127.0.0.1 | Command: TERMINAL_ACCESS: whoami
+IP: 127.0.0.1 | Command: dir
+IP: 127.0.0.1 | Command: TERMINAL_ACCESS: dir
+IP: 10.219.120.45 | Command: hello
+IP: 10.219.120.45 | Command: whoami
+IP: 10.219.120.45 | Command: TERMINAL_ACCESS: whoami
+IP: 10.219.120.45 | Command: mkdir server.py .server.py
+IP: 10.219.120.45 | Command: TERMINAL_ACCESS: mkdir server.py .server.py
+IP: 10.219.120.45 | Command: ls
+IP: 10.219.120.45 | Command: TERMINAL_ACCESS: ls
+IP: 10.219.120.45 | Command: mv server.py .server.py
+IP: 10.219.120.45 | Command: TERMINAL_ACCESS: mv server.py .server.py
+IP: 10.219.120.45 | Command: ls
+IP: 10.219.120.45 | Command: TERMINAL_ACCESS: ls
+IP: 192.168.137.116 | Command: whoami
+IP: 192.168.137.116 | Command: TERMINAL_ACCESS: whoami
+IP: 192.168.137.116 | Command: ls
+IP: 192.168.137.116 | Command: TERMINAL_ACCESS: ls
+IP: 192.168.137.116 | Command: whoami
+IP: 192.168.137.116 | Command: TERMINAL_ACCESS: whoami
+IP: 127.0.0.1 | Command: ls
+IP: 127.0.0.1 | Command: TERMINAL_ACCESS: ls
+IP: 127.0.0.1 | Command: whoami
+IP: 127.0.0.1 | Command: TERMINAL_ACCESS: whoami
+IP: 127.0.0.1 | Command: ls
+IP: 127.0.0.1 | Command: TERMINAL_ACCESS: ls
+IP: 127.0.0.1 | Command: dir
+IP: 127.0.0.1 | Command: TERMINAL_ACCESS: dir
+IP: 127.0.0.1 | Command: ls
+IP: 127.0.0.1 | Command: TERMINAL_ACCESS: ls
+IP: 127.0.0.1 | Command: ls
+IP: 127.0.0.1 | Command: TERMINAL_ACCESS: ls
+IP: 127.0.0.1 | Command: dir
+IP: 127.0.0.1 | Command: TERMINAL_ACCESS: dir
+IP: 127.0.0.1 | Command: dir
+IP: 127.0.0.1 | Command: TERMINAL_ACCESS: dir
+IP: 127.0.0.1 | Command: mv server.py .server.py
+IP: 127.0.0.1 | Command: dir
+IP: 127.0.0.1 | Command: TERMINAL_ACCESS: mv server.py .server.py
+IP: 127.0.0.1 | Command: TERMINAL_ACCESS: dir
+IP: 127.0.0.1 | Command: clear
+IP: 127.0.0.1 | Command: TERMINAL_ACCESS: clear
+IP: 127.0.0.1 | Command: whoami
+IP: 127.0.0.1 | Command: TERMINAL_ACCESS: whoami
+IP: 127.0.0.1 | Command: whoami
+IP: 127.0.0.1 | Command: TERMINAL_ACCESS: whoami
+IP: 127.0.0.1 | Command: dir
+IP: 127.0.0.1 | Command: TERMINAL_ACCESS: dir
+IP: 127.0.0.1 | Command: touch test.txt
+IP: 127.0.0.1 | Command: TERMINAL_ACCESS: touch test.txt
+IP: 127.0.0.1 | Command: dir
+IP: 127.0.0.1 | Command: TERMINAL_ACCESS: dir
+IP: 127.0.0.1 | Command: rm test.txt
+IP: 127.0.0.1 | Command: TERMINAL_ACCESS: rm test.txt
+IP: 127.0.0.1 | Command: dir
+IP: 127.0.0.1 | Command: TERMINAL_ACCESS: dir
+IP: 127.0.0.1 | Command: whoami
+IP: 127.0.0.1 | Command: TERMINAL_ACCESS: whoami
+IP: 127.0.0.1 | Command: whoami
+IP: 127.0.0.1 | Command: TERMINAL_ACCESS: whoami

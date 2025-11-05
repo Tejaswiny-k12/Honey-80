@@ -1,0 +1,65 @@
+2025-10-04T05:30:54.264884 | User: SYSTEM | Default user created: admin@example.com
+2025-10-04T05:31:31.765941 | User: admin@example.com | Failed login attempt from 127.0.0.1
+2025-10-04T05:32:06.504721 | User: tejaswinyk12@gmail.com | Signed up from 127.0.0.1
+2025-10-04T05:32:18.962832 | User: tejaswinyk12@gmail.com | Logged in from 127.0.0.1
+2025-10-04T05:33:18.733043 | User: tejaswinyk12@gmail.com | Logged out from 127.0.0.1
+2025-10-04T05:33:37.714774 | User: admin@example.com | Failed login attempt from 127.0.0.1
+2025-10-04T05:35:20.549060 | User: admin@example.com | Logged in from 127.0.0.1
+2025-10-04T05:45:01.867235 | User: admin@example.com | Logged out from 127.0.0.1
+2025-10-04T05:49:29.342003 | User: tejaswinyk12@gmail.com | Failed login attempt from 127.0.0.1
+2025-10-04T05:49:36.934369 | User: tejaswinyk12@gmail.com | Failed login attempt from 127.0.0.1
+2025-10-04T05:49:43.696422 | User: tejaswinyk12@gmail.com | Failed login attempt from 127.0.0.1
+2025-10-04T05:49:51.972106 | User: tejaswinyk12@gmail.com | Signed up from 127.0.0.1
+2025-10-04T05:49:56.252330 | User: tejaswinyk12@gmail.com | Logged in from 127.0.0.1
+2025-10-04T05:54:52.051715 | User: tejaswinyk12@gmail.com | Logged out from 127.0.0.1
+2025-10-04T05:55:10.888776 | User: admin@example.com | Failed login attempt from 127.0.0.1
+2025-10-04T05:55:18.827928 | User: tejaswinyk12@gmail.com | Failed login attempt from 127.0.0.1
+2025-10-04T05:55:32.308295 | User: tejaswinyk12@gmail.com | Failed login attempt from 127.0.0.1
+2025-10-04T05:55:39.751279 | User: tejaswinyk12@gmail.com | Signed up from 127.0.0.1
+2025-10-04T05:55:45.106882 | User: tejaswinyk12@gmail.com | Logged in from 127.0.0.1
+2025-10-04T06:07:17.448686 | User: tejaswinyk12@gmail.com | Logged out from 127.0.0.1
+2025-10-04T06:07:26.781996 | User: tejaswinyk12@gmail.com | Logged in from 127.0.0.1
+2025-10-04T10:18:02.584549 | User: tejaswinyk12@gmail.com | Logged in from 127.0.0.1
+2025-10-04T10:19:02.444581 | User: tejaswinyk12@gmail.com | Logged out from 127.0.0.1
+2025-10-04T10:19:32.033000 | User: testk12@gmail.com | Failed login attempt from 127.0.0.1
+2025-10-04T10:19:48.629546 | User: test@test.com | Signed up from 127.0.0.1
+2025-10-04T10:19:59.767991 | User: test@test.com | Logged in from 127.0.0.1
+2025-10-05T07:21:08.614356 | User: tejaswinyk12@gmail.com | Failed login attempt from 127.0.0.1
+2025-10-05T07:21:40.183082 | User: test123@test.com | Signed up from 127.0.0.1
+2025-10-05T07:21:50.906868 | User: test123@test.com | Logged in from 127.0.0.1
+2025-10-05T08:34:09.011543 | User: test123@test.com | Logged out from 127.0.0.1
+2025-10-05T08:34:18.249623 | User: tejaswinyk12@gmail.com | Failed login attempt from 127.0.0.1
+2025-10-05T08:34:25.079392 | User: tejaswinyk12@gmail.com | Failed login attempt from 127.0.0.1
+2025-10-05T08:34:39.254641 | User: test123@test.com | Logged in from 127.0.0.1
+2025-10-05T08:47:35.684792 | User: test123@test.com | Logged out from 127.0.0.1
+2025-10-05T08:51:49.532281 | User: test123@test.com | Logged in from 127.0.0.1
+2025-10-05T09:05:58.098668 | User: test123@test.com | Logged out from 127.0.0.1
+2025-10-05T09:06:27.158060 | User: tejaswinyk12@gmail.com | Failed login attempt from 127.0.0.1
+2025-10-05T09:06:38.493410 | User: test123@test.com | Logged in from 127.0.0.1
+2025-10-05T09:18:33.190805 | User: tejaswinyk12@gmail.com | Signed up from 127.0.0.1
+2025-10-05T09:18:36.830753 | User: tejaswinyk12@gmail.com | Logged in from 127.0.0.1
+2025-10-05T09:22:28.282447 | User: tejaswinyk12@gmail.com | Logged out from 127.0.0.1
+2025-10-05T09:22:30.903735 | User: tejaswinyk12@gmail.com | Logged in from 127.0.0.1
+2025-10-05T09:28:04.606041 | User: tejaswinyk12@gmail.com | Logged out from 127.0.0.1
+2025-10-09T03:23:52.668149 | User: tejaswinyk12@gmail.com | Logged in from 127.0.0.1
+2025-10-09T05:33:57.930879 | User: sddf@gmail.com | Failed login attempt from 10.219.120.45
+2025-10-09T05:34:54.203149 | User: test@gmail.com | Signed up from 10.219.120.45
+2025-10-09T05:35:06.243672 | User: test@gmail.com | Logged in from 10.219.120.45
+2025-10-09T06:12:48.915576 | User: test@gmail.com | Logged in from 127.0.0.1
+2025-10-09T06:20:32.929586 | User: test@gmail.com | Logged in from 127.0.0.1
+2025-10-09T06:20:49.903086 | User: test@gmail.com | Logged in from 127.0.0.1
+2025-10-09T06:35:39.374483 | User: test@gmail.com | Logged in from 192.168.137.116
+2025-10-09T06:36:11.695048 | User: test@gmail.com | Logged in from 127.0.0.1
+2025-10-09T06:38:52.968124 | User: test@gmail.com | Logged in from 127.0.0.1
+2025-10-09T06:40:27.824847 | User: test@test.com | Failed login attempt from 127.0.0.1
+2025-10-09T06:40:30.195034 | User: test@test.com | Failed login attempt from 127.0.0.1
+2025-10-09T06:40:30.455271 | User: test@test.com | Failed login attempt from 127.0.0.1
+2025-10-09T06:40:30.976527 | User: test@test.com | Failed login attempt from 127.0.0.1
+2025-10-09T06:40:32.292223 | User: test@test.com | Failed login attempt from 127.0.0.1
+2025-10-09T06:40:32.957271 | User: test@test.com | Failed login attempt from 127.0.0.1
+2025-10-09T06:40:33.176686 | User: test@test.com | Failed login attempt from 127.0.0.1
+2025-10-09T06:40:34.523646 | User: test@test.com | Failed login attempt from 127.0.0.1
+2025-10-09T06:40:35.444325 | User: test@test.com | Failed login attempt from 127.0.0.1
+2025-10-09T06:40:35.654768 | User: test@test.com | Failed login attempt from 127.0.0.1
+2025-10-24T08:38:22.115395 | User: test@gmail.com | Failed login attempt from 10.45.143.46
+2025-10-24T08:39:31.891944 | User: Tejaswiny1234@test.com | Signed up from 10.45.143.46
